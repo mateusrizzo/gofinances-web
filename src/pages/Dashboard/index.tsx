@@ -24,9 +24,9 @@ interface Transaction {
 }
 
 interface Balance {
-  income: string;
-  outcome: string;
-  total: string;
+  income: number;
+  outcome: number;
+  total: number;
 }
 
 const Dashboard: React.FC = () => {
@@ -35,11 +35,10 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     async function loadTransactions(): Promise<void> {
-      const recoveredTransactions = await api.get('/transactions');
-      console.log(recoveredTransactions.data.transactions);
-      setTransactions(recoveredTransactions.data.transactions);
-      setBalance(recoveredTransactions.data.balance);
-      console.log(transactions);
+      const response = await api.get('/transactions');
+
+      setTransactions(response.data.transactions);
+      setBalance(response.data.balance);
     }
     loadTransactions();
   }, []);
@@ -54,21 +53,21 @@ const Dashboard: React.FC = () => {
               <p>Entradas</p>
               <img src={income} alt="Income" />
             </header>
-            <h1 data-testid="balance-income">R$5.000,00</h1>
+            <h1 data-testid="balance-income">{formatValue(balance.income)}</h1>
           </Card>
           <Card>
             <header>
               <p>Saídas</p>
               <img src={outcome} alt="Outcome" />
             </header>
-            <h1 data-testid="balance-outcome">R$ 1.000,00</h1>
+            <h1 data-testid="balance-outcome">{formatValue(balance.outcome)}</h1>
           </Card>
           <Card total>
             <header>
               <p>Total</p>
               <img src={total} alt="Total" />
             </header>
-            <h1 data-testid="balance-total">R$ 4000,00</h1>
+            <h1 data-testid="balance-total">{formatValue(balance.total)}</h1>
           </Card>
         </CardContainer>
 
