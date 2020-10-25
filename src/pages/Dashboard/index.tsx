@@ -30,14 +30,17 @@ interface Balance {
 }
 
 const Dashboard: React.FC = () => {
-  // const [transactions, setTransactions] = useState<Transaction[]>([]);
-  // const [balance, setBalance] = useState<Balance>({} as Balance);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [balance, setBalance] = useState<Balance>({} as Balance);
 
   useEffect(() => {
     async function loadTransactions(): Promise<void> {
-      // TODO
+      const recoveredTransactions = await api.get('/transactions');
+      console.log(recoveredTransactions.data.transactions);
+      setTransactions(recoveredTransactions.data.transactions);
+      setBalance(recoveredTransactions.data.balance);
+      console.log(transactions);
     }
-
     loadTransactions();
   }, []);
 
@@ -51,7 +54,7 @@ const Dashboard: React.FC = () => {
               <p>Entradas</p>
               <img src={income} alt="Income" />
             </header>
-            <h1 data-testid="balance-income">R$ 5.000,00</h1>
+            <h1 data-testid="balance-income">R$5.000,00</h1>
           </Card>
           <Card>
             <header>
