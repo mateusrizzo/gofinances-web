@@ -94,14 +94,14 @@ const Dashboard: React.FC = () => {
             </thead>
 
             <tbody>
-              {/* {transactions.map(transaction => (
+              {transactions.map(transaction => (
                 <tr key={transaction.id}>
                   <td className="title">{transaction.title}</td>
                   <td className={transaction.type}>{transaction.value}</td>
-                  <td>{transaction.category}</td>
+                  <td>{transaction.category.title}</td>
                   <td>{transaction.created_at}</td>
                 </tr>
-              ))} */}
+              ))}
             </tbody>
           </table>
         </TableContainer>
